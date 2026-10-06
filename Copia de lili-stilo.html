@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lili Stilo SPA</title>
+<!-- Bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --rose:#C9637A;--rose-dark:#8B3A4E;--rose-pale:#F7EBF0;
+  --rose-mid:#E8A4B8;--plum:#3D1A2A;--plum-soft:#6B3D52;
+  --cream:#FAF6F4;--cream-deep:#F2EAE6;--warm-white:#FFFCFA;
+  --text:#1C0D14;--text-mid:#6B4455;--text-soft:#B08898;
+  --border:rgba(180,110,140,0.14);--border-mid:rgba(180,110,140,0.28);
+  --success:#2E7D5E;--success-bg:#E8F5EF;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+.font-serif{font-family:'Cormorant Garamond',serif}
+
+/* ── NAV ── */
+.navbar{background:var(--warm-white);border-bottom:.5px solid var(--border);height:62px}
+.brand-mark{width:34px;height:34px;border-radius:50%;background:var(--plum);display:flex;align-items:center;justify-content:center;color:var(--rose-mid);font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:600;flex-shrink:0}
+.brand-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--plum)}
+.nav-link{font-size:13px;font-weight:400;color:var(--text-mid)!important;transition:color .2s}
+.nav-link:hover{color:var(--rose)!important}
+.btn-login-nav{font-size:13px;color:var(--plum);border:.5px solid var(--border-mid);padding:7px 16px;border-radius:4px;background:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.btn-login-nav:hover{background:var(--rose-pale);border-color:var(--rose-mid)}
+.btn-book-nav{background:var(--plum);color:var(--rose-pale)!important;padding:8px 18px;border-radius:4px;font-size:13px;font-weight:500;border:none;transition:background .2s}
+.btn-book-nav:hover{background:var(--rose-dark)}
+.cart-btn{position:relative;background:none;border:.5px solid var(--border-mid);width:36px;height:36px;border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:background .2s}
+.cart-btn:hover{background:var(--rose-pale)}
+.cart-count{position:absolute;top:-5px;right:-5px;background:var(--rose);color:white;font-size:10px;font-weight:500;width:16px;height:16px;border-radius:50%;display:none;align-items:center;justify-content:center}
+.cart-count.show{display:flex}
+
+/* ── HERO ── */
+.hero-left{background:var(--plum);min-height:88vh;display:flex;flex-direction:column;justify-content:flex-end;padding:4rem 3rem;position:relative;overflow:hidden}
+.hero-img{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&q=80') center/cover no-repeat;opacity:.35}
+.hero-left-content{position:relative;z-index:1}
+.hero-tag{display:inline-block;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--rose-mid);border:.5px solid rgba(232,164,184,.4);padding:5px 14px;border-radius:3px;margin-bottom:1.5rem}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5vw,4.5rem);font-weight:300;line-height:1.05;color:white;margin-bottom:1.2rem}
+.hero-title em{font-style:italic;color:var(--rose-mid)}
+.hero-desc{font-size:14px;font-weight:300;color:rgba(255,255,255,.65);max-width:380px;line-height:1.75;margin-bottom:2rem}
+.btn-white{background:white;color:var(--plum);padding:11px 26px;border-radius:4px;font-size:14px;font-weight:500;text-decoration:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:transform .15s;display:inline-block}
+.btn-white:hover{transform:translateY(-1px)}
+.btn-outline-w{background:transparent;color:white;padding:11px 26px;border-radius:4px;font-size:14px;border:.5px solid rgba(255,255,255,.4);cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;transition:border-color .2s;display:inline-block}
+.btn-outline-w:hover{border-color:white;color:white}
+.hero-right{background:var(--cream-deep);min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:3rem 2.5rem;gap:1rem}
+.hero-cards-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;color:var(--plum);margin-bottom:.5rem}
+.hstat{background:var(--warm-white);border:.5px solid var(--border-mid);border-radius:6px;padding:1rem 1.2rem}
+.hstat-num{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;color:var(--rose-dark)}
+.hstat-label{font-size:12px;color:var(--text-soft);margin-top:2px}
+.hero-thumb{border-radius:6px;overflow:hidden;height:140px;position:relative}
+.hero-thumb img{width:100%;height:100%;object-fit:cover}
+.thumb-label{position:absolute;bottom:0;left:0;right:0;background:rgba(61,26,42,.75);color:rgba(255,255,255,.9);font-size:12px;padding:6px 10px;font-weight:300}
+
+/* ── SECTIONS ── */
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--rose);display:block;margin-bottom:.8rem}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:300;color:var(--plum);line-height:1.2;margin-bottom:.7rem}
+.sec-title em{font-style:italic;color:var(--rose-dark)}
+.sec-sub{font-size:14px;font-weight:300;color:var(--text-mid);max-width:480px;line-height:1.75;margin-bottom:2.5rem}
+
+/* ── SERVICE CARDS ── */
+.srv-card{background:var(--warm-white);border:.5px solid var(--border-mid);border-radius:8px;overflow:hidden;transition:transform .2s}
+.srv-card:hover{transform:translateY(-3px)}
+.srv-img{height:180px;overflow:hidden}
+.srv-img img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.srv-card:hover .srv-img img{transform:scale(1.04)}
+.srv-num{font-size:11px;color:var(--text-soft);letter-spacing:1px;display:block}
+.srv-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--plum)}
+.srv-desc{font-size:12px;font-weight:300;color:var(--text-mid);line-height:1.6}
+.srv-price{font-size:12px;font-weight:500;color:var(--rose-dark);background:var(--rose-pale);padding:3px 9px;border-radius:3px;display:inline-block}
+.btn-srv-book{font-size:12px;color:var(--plum);border:.5px solid var(--border-mid);padding:4px 12px;border-radius:3px;background:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.btn-srv-book:hover{background:var(--plum);color:white;border-color:var(--plum)}
+
+/* ── PRODUCTS ── */
+.products-section{background:var(--cream-deep);border-top:.5px solid var(--border);border-bottom:.5px solid var(--border)}
+.prod-card{background:var(--warm-white);border:.5px solid var(--border-mid);border-radius:8px;overflow:hidden;transition:transform .2s;height:100%}
+.prod-card:hover{transform:translateY(-2px)}
+.prod-img{height:200px;overflow:hidden;background:var(--rose-pale)}
+.prod-img img{width:100%;height:100%;object-fit:cover}
+.prod-badge{font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:var(--rose-dark);background:var(--rose-pale);padding:2px 8px;border-radius:2px;display:inline-block;margin-bottom:6px}
+.prod-name{font-size:14px;font-weight:500;color:var(--plum);line-height:1.3}
+.prod-brand{font-size:11px;color:var(--text-soft)}
+.prod-price{font-size:15px;font-weight:500;color:var(--plum)}
+.btn-add-cart{background:var(--plum);color:var(--rose-pale);border:none;padding:6px 14px;border-radius:3px;font-size:12px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s}
+.btn-add-cart:hover{background:var(--rose-dark)}
+
+/* ── TEAM ── */
+.team-card{background:var(--warm-white);border:.5px solid var(--border-mid);border-radius:8px;overflow:hidden}
+.team-img{height:260px;overflow:hidden}
+.team-img img{width:100%;height:100%;object-fit:cover;object-position:top}
+.team-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--plum)}
+.team-role{font-size:12px;color:var(--text-soft)}
+.team-spec{font-size:11px;color:var(--rose-dark);background:var(--rose-pale);padding:2px 8px;border-radius:2px;display:inline-block}
+
+/* ── WHY ── */
+.why-section{background:var(--plum)}
+.why-img{border-radius:8px;overflow:hidden;height:420px}
+.why-img img{width:100%;height:100%;object-fit:cover}
+.why-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3vw,2.8rem);font-weight:300;color:white;line-height:1.2}
+.why-title em{font-style:italic;color:var(--rose-mid)}
+.why-num{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--rose-mid);min-width:36px;line-height:1}
+.why-text-title{font-size:14px;font-weight:500;color:white}
+.why-text-desc{font-size:13px;font-weight:300;color:rgba(255,255,255,.55);line-height:1.6}
+
+/* ── BOOKING MODAL ── */
+#modalAgendar .modal-content{border-radius:10px;border:none;background:var(--warm-white)}
+#modalAgendar .modal-header{border-bottom:.5px solid var(--border-mid);padding:1.2rem 1.5rem}
+#modalAgendar .modal-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--plum)}
+.booking-steps{display:flex;border-bottom:.5px solid var(--border-mid)}
+.bstep{flex:1;padding:.9rem .8rem;font-size:11px;font-weight:500;letter-spacing:.5px;color:var(--text-soft);text-transform:uppercase;border-right:.5px solid var(--border);cursor:pointer;transition:background .2s,color .2s;display:flex;align-items:center;gap:8px}
+.bstep:last-child{border-right:none}
+.bstep.active{background:var(--rose-pale);color:var(--rose-dark)}
+.bstep.done{color:var(--plum)}
+.bstep-n{width:20px;height:20px;border-radius:50%;background:var(--border-mid);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--text-soft);flex-shrink:0;transition:all .2s}
+.bstep.active .bstep-n{background:var(--rose);color:white}
+.bstep.done .bstep-n{background:var(--plum);color:var(--rose-pale)}
+.step-panel{display:none}
+.step-panel.show{display:block}
+.srv-opt{border:.5px solid var(--border-mid);border-radius:6px;padding:.9rem 1rem;cursor:pointer;transition:all .2s;display:flex;align-items:flex-start;gap:10px}
+.srv-opt:hover{background:var(--rose-pale);border-color:var(--rose-mid)}
+.srv-opt.selected{border-color:var(--rose);background:var(--rose-pale)}
+.opt-radio{width:17px;height:17px;border-radius:50%;border:1.5px solid var(--border-mid);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.srv-opt.selected .opt-radio{border-color:var(--rose);background:var(--rose)}
+.opt-dot{width:6px;height:6px;border-radius:50%;background:white;display:none}
+.srv-opt.selected .opt-dot{display:block}
+.opt-name{font-size:13px;font-weight:500;color:var(--plum)}
+.opt-price{font-size:11px;color:var(--text-soft);margin-top:2px}
+.cal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.cal-month{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--plum)}
+.cal-nav{background:none;border:.5px solid var(--border-mid);width:30px;height:30px;border-radius:4px;cursor:pointer;font-size:14px;color:var(--text-mid);transition:all .2s}
+.cal-nav:hover{background:var(--rose-pale);border-color:var(--rose-mid)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal-day-name{text-align:center;font-size:10px;font-weight:500;color:var(--text-soft);text-transform:uppercase;letter-spacing:.5px;padding:4px 0}
+.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:13px;border-radius:4px;cursor:pointer;transition:all .2s;color:var(--text)}
+.cal-day:hover:not(.empty):not(.past){background:var(--rose-pale);color:var(--rose-dark)}
+.cal-day.selected{background:var(--rose);color:white}
+.cal-day.today{font-weight:500;color:var(--rose-dark)}
+.cal-day.past{color:var(--border-mid);cursor:default;pointer-events:none}
+.cal-day.empty{cursor:default}
+.time-slot{padding:8px 4px;text-align:center;border:.5px solid var(--border-mid);border-radius:4px;font-size:12px;color:var(--text-mid);cursor:pointer;transition:all .2s;background:var(--warm-white)}
+.time-slot:hover:not(.taken){background:var(--rose-pale);border-color:var(--rose-mid)}
+.time-slot.selected{background:var(--rose);border-color:var(--rose);color:white}
+.time-slot.taken{opacity:.35;cursor:not-allowed;text-decoration:line-through}
+.form-label-custom{display:block;font-size:11px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;color:var(--text-soft);margin-bottom:5px}
+.form-input-custom{width:100%;padding:9px 13px;border:.5px solid var(--border-mid);border-radius:5px;font-size:13px;font-family:'DM Sans',sans-serif;background:var(--warm-white);color:var(--text);transition:border-color .2s}
+.form-input-custom:focus{outline:none;border-color:var(--rose)}
+.confirm-card{border:.5px solid var(--border-mid);border-radius:6px;padding:1.3rem}
+.confirm-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:.5px solid var(--border);font-size:13px}
+.confirm-row:last-child{border-bottom:none}
+.confirm-label{color:var(--text-soft);font-size:12px}
+.confirm-val{font-weight:500;color:var(--plum)}
+.btn-back-step{font-size:13px;color:var(--text-soft);background:none;border:.5px solid var(--border-mid);padding:8px 18px;border-radius:4px;cursor:pointer;font-family:'DM Sans',sans-serif}
+.btn-next-step{background:var(--plum);color:var(--rose-pale);padding:9px 24px;border-radius:4px;font-size:13px;font-weight:500;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s}
+.btn-next-step:hover{background:var(--rose-dark)}
+.success-icon{width:52px;height:52px;border-radius:50%;background:var(--success-bg);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:22px;color:var(--success)}
+.success-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:400;color:var(--plum)}
+
+/* ── CART / LOGIN MODALS ── */
+.modal-custom .modal-content{border-radius:10px;border:none;background:var(--warm-white)}
+.login-logo-mark{width:48px;height:48px;border-radius:50%;background:var(--plum);display:flex;align-items:center;justify-content:center;color:var(--rose-mid);font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;margin:0 auto 8px}
+.login-tab-btn{flex:1;padding:10px;text-align:center;font-size:12px;font-weight:500;letter-spacing:.3px;text-transform:uppercase;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;background:none;border-top:none;border-left:none;border-right:none;transition:all .2s}
+.login-tab-btn.active{color:var(--rose-dark);border-bottom-color:var(--rose)}
+.role-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:3px;font-size:11px;font-weight:500;letter-spacing:.5px;text-transform:uppercase}
+.role-admin{background:#EEEDFE;color:#534AB7}
+.role-worker{background:#E1F5EE;color:#0F6E56}
+.role-client{background:var(--rose-pale);color:var(--rose-dark)}
+.cart-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:.5px solid var(--border);font-size:13px}
+.cart-item:last-child{border-bottom:none}
+.cart-item-name{font-weight:500;color:var(--plum)}
+.cart-item-price{color:var(--rose-dark);font-weight:500}
+.btn-remove{background:none;border:none;color:var(--text-soft);cursor:pointer;font-size:16px;padding:0 6px}
+.btn-remove:hover{color:var(--rose)}
+
+/* ── DASHBOARD ── */
+.dashboard-overlay{display:none;position:fixed;inset:0;background:var(--warm-white);z-index:1100;overflow-y:auto;padding:2rem}
+.dashboard-overlay.open{display:block}
+.dash-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--plum)}
+.dash-stat{background:var(--cream-deep);border-radius:6px;padding:1.2rem}
+.dash-stat-n{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;color:var(--rose-dark)}
+.dash-stat-l{font-size:12px;color:var(--text-soft);margin-top:2px}
+.dash-table{width:100%;border-collapse:collapse;font-size:13px}
+.dash-table th{text-align:left;font-size:11px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;color:var(--text-soft);padding:8px 12px;border-bottom:.5px solid var(--border-mid)}
+.dash-table td{padding:10px 12px;border-bottom:.5px solid var(--border)}
+.dash-badge{padding:2px 8px;border-radius:2px;font-size:11px;font-weight:500}
+.badge-conf{background:var(--success-bg);color:var(--success)}
+.badge-pend{background:#FAEEDA;color:#854F0B}
+.badge-canc{background:#FCEBEB;color:#A32D2D}
+
+/* ── FOOTER ── */
+footer{background:var(--text)}
+.footer-brand-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:rgba(255,255,255,.9)}
+.footer-tagline{font-size:12px;font-weight:300;color:rgba(255,255,255,.3)}
+.footer-links a{font-size:13px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--rose-mid)}
+.footer-credits{font-size:12px;color:rgba(255,255,255,.2);line-height:1.8}
+
+/* ── TOAST ── */
+#toast{display:none;position:fixed;bottom:2rem;right:2rem;background:var(--plum);color:var(--rose-pale);padding:12px 20px;border-radius:6px;font-size:13px;z-index:2000;max-width:280px;line-height:1.5}
+</style>
+</head>
+<body>
+
+<!-- ═══════ LOGIN MODAL ═══════ -->
+<div class="modal fade modal-custom" id="loginModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-4">
+      <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"></button>
+      <div class="text-center mb-3">
+        <div class="login-logo-mark">LS</div>
+        <div class="font-serif fs-4 fw-semibold" style="color:var(--plum)">Lili Stilo SPA</div>
+        <div style="font-size:12px;color:var(--text-soft)">Inicia sesión en tu cuenta</div>
+      </div>
+      <div class="d-flex border-bottom mb-3">
+        <button class="login-tab-btn active" onclick="switchRole('clienta',this)">Clienta</button>
+        <button class="login-tab-btn" onclick="switchRole('trabajadora',this)">Trabajadora</button>
+        <button class="login-tab-btn" onclick="switchRole('administrador',this)">Admin</button>
+      </div>
+      <div id="login-role-hint" class="role-badge role-client mb-3">Acceso para Clientas</div>
+      <div class="alert alert-danger py-2 small d-none" id="login-error">Correo o contraseña incorrectos.</div>
+      <div class="alert alert-success py-2 small d-none" id="login-success">¡Bienvenida! Abriendo tu panel...</div>
+      <div class="mb-3">
+        <label class="form-label-custom">Correo electrónico</label>
+        <input class="form-input-custom" type="email" id="login-email" placeholder="tucorreo@email.com">
+      </div>
+      <div class="mb-3">
+        <label class="form-label-custom">Contraseña</label>
+        <input class="form-input-custom" type="password" id="login-pass" placeholder="••••••••">
+      </div>
+      <button class="btn-next-step w-100 mb-2" onclick="doLogin()">Iniciar sesión</button>
+      <div class="text-center" style="font-size:12px;color:var(--text-soft)">¿No tienes cuenta? <a href="#" style="color:var(--rose-dark);text-decoration:none" onclick="swapToRegister()">Regístrate gratis</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ REGISTER MODAL ═══════ -->
+<div class="modal fade modal-custom" id="registerModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-4">
+      <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"></button>
+      <div class="text-center mb-3">
+        <div class="login-logo-mark">LS</div>
+        <div class="font-serif fs-4 fw-semibold" style="color:var(--plum)">Lili Stilo SPA</div>
+        <div style="font-size:12px;color:var(--text-soft)">Crea tu cuenta de clienta</div>
+      </div>
+      <div class="alert alert-success py-2 small d-none" id="reg-success"></div>
+      <div class="row g-2 mb-2">
+        <div class="col-6"><label class="form-label-custom">Nombre</label><input class="form-input-custom" id="reg-name" placeholder="Tu nombre"></div>
+        <div class="col-6"><label class="form-label-custom">Apellido</label><input class="form-input-custom" id="reg-lname" placeholder="Apellido"></div>
+      </div>
+      <div class="mb-2"><label class="form-label-custom">Correo</label><input class="form-input-custom" type="email" id="reg-email" placeholder="tucorreo@email.com"></div>
+      <div class="mb-2"><label class="form-label-custom">WhatsApp</label><input class="form-input-custom" type="tel" id="reg-tel" placeholder="3001234567"></div>
+      <div class="mb-3"><label class="form-label-custom">Contraseña</label><input class="form-input-custom" type="password" id="reg-pass" placeholder="Mínimo 6 caracteres"></div>
+      <button class="btn-next-step w-100 mb-2" onclick="doRegister()">Crear cuenta</button>
+      <div class="text-center" style="font-size:12px;color:var(--text-soft)">¿Ya tienes cuenta? <a href="#" style="color:var(--rose-dark);text-decoration:none" onclick="swapToLogin()">Inicia sesión</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ CART MODAL ═══════ -->
+<div class="modal fade modal-custom" id="cartModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-4">
+      <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"></button>
+      <h5 class="font-serif mb-3" style="font-size:1.4rem;color:var(--plum);font-weight:600">Mi carrito</h5>
+      <div id="cart-items-list" style="max-height:260px;overflow-y:auto"></div>
+      <div class="d-flex justify-content-between fw-500 py-2 border-top" style="font-size:14px;border-color:var(--border-mid)!important">
+        <span>Total</span><span id="cart-total-val">$0</span>
+      </div>
+      <button class="btn-next-step w-100 mt-2" onclick="doCheckout()">Proceder al pago →</button>
+      <div id="checkout-success" class="d-none text-center py-3" style="color:var(--success);font-size:14px">✓ ¡Pedido realizado! Te contactaremos pronto.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ BOOKING MODAL ═══════ -->
+<div class="modal fade" id="modalAgendar" tabindex="-1" data-bs-backdrop="static">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <h5 class="modal-title">Agenda tu cita <em style="font-style:italic;color:var(--rose-dark)">en minutos</em></h5>
+          <p style="font-size:12px;color:var(--text-soft);margin:0;font-weight:300">Elige servicio, fecha y hora.</p>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <!-- STEPS HEADER -->
+      <div class="booking-steps">
+        <div class="bstep active" id="tab1"><span class="bstep-n">1</span>Servicio</div>
+        <div class="bstep" id="tab2"><span class="bstep-n">2</span>Fecha & hora</div>
+        <div class="bstep" id="tab3"><span class="bstep-n">3</span>Tus datos</div>
+        <div class="bstep" id="tab4"><span class="bstep-n">4</span>Confirmar</div>
+      </div>
+      <div class="modal-body p-4">
+
+        <!-- STEP 1 -->
+        <div class="step-panel show" id="step1">
+          <p style="font-size:13px;color:var(--text-mid);margin-bottom:1rem;font-weight:300">Selecciona el servicio que deseas reservar:</p>
+          <div class="row g-2 mb-3">
+            <div class="col-6"><div class="srv-opt" onclick="selectSrv(this,'Alisado Brasileño')"><div class="opt-radio"><div class="opt-dot"></div></div><div><div class="opt-name">Alisado Brasileño</div><div class="opt-price">Desde $120.000 · 3–4h</div></div></div></div>
+            <div class="col-6"><div class="srv-opt" onclick="selectSrv(this,'Coloración & Mechas')"><div class="opt-radio"><div class="opt-dot"></div></div><div><div class="opt-name">Coloración & Mechas</div><div class="opt-price">Desde $80.000 · 2–3h</div></div></div></div>
+            <div class="col-6"><div class="srv-opt" onclick="selectSrv(this,'Manicure & Pedicure')"><div class="opt-radio"><div class="opt-dot"></div></div><div><div class="opt-name">Manicure & Pedicure</div><div class="opt-price">Desde $35.000 · 45 min</div></div></div></div>
+            <div class="col-6"><div class="srv-opt" onclick="selectSrv(this,'Corte & Estilo')"><div class="opt-radio"><div class="opt-dot"></div></div><div><div class="opt-name">Corte & Estilo</div><div class="opt-price">Desde $30.000 · 45 min</div></div></div></div>
+            <div class="col-6"><div class="srv-opt" onclick="selectSrv(this,'Tratamientos Capilares')"><div class="opt-radio"><div class="opt-dot"></div></div><div><div class="opt-name">Tratamientos Capilares</div><div class="opt-price">Desde $55.000 · 1h</div></div></div></div>
+            <div class="col-6"><div class="srv-opt" onclick="selectSrv(this,'Spa Facial')"><div class="opt-radio"><div class="opt-dot"></div></div><div><div class="opt-name">Spa Facial</div><div class="opt-price">Desde $70.000 · 1h</div></div></div></div>
+          </div>
+          <div class="d-flex justify-content-end pt-3 border-top" style="border-color:var(--border)!important">
+            <button class="btn-next-step" onclick="nextStep(1)">Elegir fecha →</button>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step-panel" id="step2">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="cal-header">
+                <button class="cal-nav" onclick="changeMonth(-1)">‹</button>
+                <span class="cal-month" id="cal-month-label"></span>
+                <button class="cal-nav" onclick="changeMonth(1)">›</button>
+              </div>
+              <div class="cal-grid" id="cal-grid"></div>
+            </div>
+            <div class="col-md-6">
+              <div style="font-size:12px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;color:var(--text-soft);margin-bottom:8px">Horarios disponibles</div>
+              <div class="row g-1 mb-2">
+                <div class="col-4"><div class="time-slot" onclick="selTime(this)">08:00</div></div>
+                <div class="col-4"><div class="time-slot" onclick="selTime(this)">08:30</div></div>
+                <div class="col-4"><div class="time-slot taken">09:00</div></div>
+                <div class="col-4"><div class="time-slot" onclick="selTime(this)">09:30</div></div>
+                <div class="col-4"><div class="time-slot taken">10:00</div></div>
+                <div class="col-4"><div class="time-slot" onclick="selTime(this)">10:30</div></div>
+                <div class="col-4"><div class="time-slot" onclick="selTime(this)">11:00</div></div>
+                <div class="col-4"><div class="time-slot taken">11:30</div></div>
+                <div class="col-4"><div class="time-slot" onclick="selTime(this)">14:00</div></div>
+                <div class="col-4"><div class="time-slot" onclick="selTime(this)">14:30</div></div>
+                <div class="col-4"><div class="time-slot taken">15:00</div></div>
+                <div class="col-4"><div class="time-slot" onclick="selTime(this)">15:30</div></div>
+                <div class="col-4"><div class="time-slot" onclick="selTime(this)">16:00</div></div>
+                <div class="col-4"><div class="time-slot" onclick="selTime(this)">16:30</div></div>
+                <div class="col-4"><div class="time-slot taken">17:00</div></div>
+              </div>
+              <p style="font-size:11px;color:var(--text-soft);margin-bottom:1rem">Tachados = no disponibles</p>
+              <label class="form-label-custom">Estilista preferida</label>
+              <select class="form-input-custom" id="estilista-sel">
+                <option value="Sin preferencia">Sin preferencia</option>
+                <option>Lili Mosquera</option>
+                <option>Carolina Estrada</option>
+                <option>Valentina Ríos</option>
+              </select>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between pt-3 mt-3 border-top" style="border-color:var(--border)!important">
+            <button class="btn-back-step" onclick="prevStep(2)">← Atrás</button>
+            <button class="btn-next-step" onclick="nextStep(2)">Mis datos →</button>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step-panel" id="step3">
+          <p style="font-size:13px;color:var(--text-mid);margin-bottom:1.2rem;font-weight:300">Completa tus datos para confirmar la reserva.</p>
+          <div class="row g-3 mb-2">
+            <div class="col-md-6"><label class="form-label-custom">Nombre completo</label><input type="text" class="form-input-custom" id="b-nombre" placeholder="Tu nombre completo"></div>
+            <div class="col-md-6"><label class="form-label-custom">WhatsApp</label><input type="tel" class="form-input-custom" id="b-tel" placeholder="3001234567"></div>
+          </div>
+          <div class="mb-3"><label class="form-label-custom">Correo electrónico</label><input type="email" class="form-input-custom" id="b-email" placeholder="Para enviar tu confirmación"></div>
+          <div class="mb-3"><label class="form-label-custom">Notas (opcional)</label><input type="text" class="form-input-custom" id="b-notas" placeholder="Alergias, preferencias de color, etc."></div>
+          <div class="d-flex justify-content-between pt-3 border-top" style="border-color:var(--border)!important">
+            <button class="btn-back-step" onclick="prevStep(3)">← Atrás</button>
+            <button class="btn-next-step" onclick="nextStep(3)">Revisar →</button>
+          </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="step-panel" id="step4">
+          <div id="confirm-block">
+            <div class="confirm-card mb-3">
+              <div class="confirm-row"><span class="confirm-label">Servicio</span><span class="confirm-val" id="c-srv"></span></div>
+              <div class="confirm-row"><span class="confirm-label">Fecha</span><span class="confirm-val" id="c-fecha"></span></div>
+              <div class="confirm-row"><span class="confirm-label">Hora</span><span class="confirm-val" id="c-hora"></span></div>
+              <div class="confirm-row"><span class="confirm-label">Estilista</span><span class="confirm-val" id="c-est"></span></div>
+              <div class="confirm-row"><span class="confirm-label">Nombre</span><span class="confirm-val" id="c-nom"></span></div>
+              <div class="confirm-row"><span class="confirm-label">Confirmación a</span><span class="confirm-val" id="c-mail" style="color:var(--rose-dark)"></span></div>
+            </div>
+            <p style="font-size:12px;color:var(--text-soft);line-height:1.7;margin-bottom:1.2rem">Recibirás un recordatorio automático por WhatsApp y correo un día antes de tu cita.</p>
+            <div class="d-flex justify-content-between pt-3 border-top" style="border-color:var(--border)!important">
+              <button class="btn-back-step" onclick="prevStep(4)">← Atrás</button>
+              <button class="btn-next-step" onclick="confirmarCita()">Confirmar cita ✓</button>
+            </div>
+          </div>
+          <div id="success-panel" class="text-center py-4 d-none">
+            <div class="success-icon">✓</div>
+            <div class="success-title mb-2">¡Cita confirmada!</div>
+            <p class="success-sub" id="success-msg" style="font-size:13px;color:var(--text-mid);font-weight:300;line-height:1.7"></p>
+            <button class="btn-next-step mt-3" onclick="resetBooking()">Agendar otra cita</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ DASHBOARDS ═══════ -->
+<div class="dashboard-overlay" id="dash-admin">
+  <div class="d-flex justify-content-between align-items-start mb-4 pb-3" style="border-bottom:.5px solid var(--border-mid)">
+    <div><div class="dash-title">Panel de Administrador</div><span class="role-badge role-admin mt-1">Admin — Lili Mosquera</span></div>
+    <button class="btn-back-step" onclick="closeDash('dash-admin')">✕ Cerrar sesión</button>
+  </div>
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-3"><div class="dash-stat"><div class="dash-stat-n">12</div><div class="dash-stat-l">Citas hoy</div></div></div>
+    <div class="col-6 col-md-3"><div class="dash-stat"><div class="dash-stat-n">$1.250.000</div><div class="dash-stat-l">Ingresos hoy</div></div></div>
+    <div class="col-6 col-md-3"><div class="dash-stat"><div class="dash-stat-n">86</div><div class="dash-stat-l">Clientas activas</div></div></div>
+    <div class="col-6 col-md-3"><div class="dash-stat"><div class="dash-stat-n">24</div><div class="dash-stat-l">Servicios</div></div></div>
+  </div>
+  <div class="fw-500 mb-2" style="font-size:14px;color:var(--plum)">Citas del día — Miércoles 18 jun 2026</div>
+  <div class="table-responsive mb-4">
+    <table class="dash-table w-100">
+      <thead><tr><th>Hora</th><th>Clienta</th><th>Servicio</th><th>Estilista</th><th>Estado</th></tr></thead>
+      <tbody>
+        <tr><td>09:00</td><td>María López</td><td>Alisado Brasileño</td><td>Lili Mosquera</td><td><span class="dash-badge badge-conf">Confirmada</span></td></tr>
+        <tr><td>10:30</td><td>Carolina García</td><td>Manicure</td><td>Valentina Ríos</td><td><span class="dash-badge badge-conf">Confirmada</span></td></tr>
+        <tr><td>11:30</td><td>Valeria Pérez</td><td>Coloración</td><td>Carolina Estrada</td><td><span class="dash-badge badge-pend">Pendiente</span></td></tr>
+        <tr><td>14:00</td><td>Sofía Martínez</td><td>Corte & Estilo</td><td>Lili Mosquera</td><td><span class="dash-badge badge-conf">Confirmada</span></td></tr>
+        <tr><td>15:30</td><td>Daniela Torres</td><td>Spa Facial</td><td>Valentina Ríos</td><td><span class="dash-badge badge-canc">Cancelada</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="dashboard-overlay" id="dash-worker">
+  <div class="d-flex justify-content-between align-items-start mb-4 pb-3" style="border-bottom:.5px solid var(--border-mid)">
+    <div><div class="dash-title">Mi agenda</div><span class="role-badge role-worker mt-1">Trabajadora — Carolina Estrada</span></div>
+    <button class="btn-back-step" onclick="closeDash('dash-worker')">✕ Cerrar sesión</button>
+  </div>
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-3"><div class="dash-stat"><div class="dash-stat-n">4</div><div class="dash-stat-l">Citas hoy</div></div></div>
+    <div class="col-6 col-md-3"><div class="dash-stat"><div class="dash-stat-n">2</div><div class="dash-stat-l">Esta tarde</div></div></div>
+    <div class="col-6 col-md-3"><div class="dash-stat"><div class="dash-stat-n">18</div><div class="dash-stat-l">Citas este mes</div></div></div>
+    <div class="col-6 col-md-3"><div class="dash-stat"><div class="dash-stat-n">4.9★</div><div class="dash-stat-l">Calificación</div></div></div>
+  </div>
+  <div class="fw-500 mb-2" style="font-size:14px;color:var(--plum)">Mis citas de hoy</div>
+  <div class="table-responsive">
+    <table class="dash-table w-100">
+      <thead><tr><th>Hora</th><th>Clienta</th><th>Servicio</th><th>Duración</th><th>Estado</th></tr></thead>
+      <tbody>
+        <tr><td>09:30</td><td>Luisa Fernández</td><td>Mechas Balayage</td><td>3h</td><td><span class="dash-badge badge-conf">Confirmada</span></td></tr>
+        <tr><td>11:30</td><td>Valeria Pérez</td><td>Coloración completa</td><td>2h</td><td><span class="dash-badge badge-pend">En proceso</span></td></tr>
+        <tr><td>14:30</td><td>Andrea Soto</td><td>Alisado Brasileño</td><td>4h</td><td><span class="dash-badge badge-pend">Pendiente</span></td></tr>
+        <tr><td>16:00</td><td>Camila Ríos</td><td>Corte & Brushing</td><td>1h</td><td><span class="dash-badge badge-pend">Pendiente</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="dashboard-overlay" id="dash-client">
+  <div class="d-flex justify-content-between align-items-start mb-4 pb-3" style="border-bottom:.5px solid var(--border-mid)">
+    <div><div class="dash-title">Mi cuenta</div><span class="role-badge role-client mt-1">Clienta registrada</span></div>
+    <button class="btn-back-step" onclick="closeDash('dash-client')">✕ Cerrar sesión</button>
+  </div>
+  <div class="fw-500 mb-2" style="font-size:14px;color:var(--plum)">Mis próximas citas</div>
+  <div class="table-responsive mb-4">
+    <table class="dash-table w-100">
+      <thead><tr><th>Fecha</th><th>Servicio</th><th>Estilista</th><th>Estado</th></tr></thead>
+      <tbody id="client-appts-table"><tr><td colspan="4" class="text-center py-3" style="color:var(--text-soft)">Aún no tienes citas agendadas.</td></tr></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════ TOAST ═══════ -->
+<div id="toast"></div>
+
+<!-- ═══════════════════════ NAV ═══════════════════════ -->
+<nav class="navbar navbar-expand-lg sticky-top px-3 px-md-4">
+  <a class="navbar-brand d-flex align-items-center gap-2 text-decoration-none" href="#">
+    <div class="brand-mark">LS</div>
+    <span class="brand-name">Lili Stilo SPA</span>
+  </a>
+  <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" style="box-shadow:none">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navMenu">
+    <ul class="navbar-nav mx-auto gap-3">
+      <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
+      <li class="nav-item"><a class="nav-link" href="#productos">Tienda</a></li>
+      <li class="nav-item"><a class="nav-link" href="#equipo">Estilistas</a></li>
+    </ul>
+    <div class="d-flex align-items-center gap-2 mt-2 mt-lg-0">
+      <button class="cart-btn" onclick="openBsModal('cartModal')">
+        🛍 <span class="cart-count" id="cart-count">0</span>
+      </button>
+      <button class="btn-login-nav" onclick="openBsModal('loginModal')">Iniciar sesión</button>
+      <button class="btn-book-nav" onclick="openBookingModal()">Agendar cita</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<section id="inicio">
+  <div class="row g-0">
+    <div class="col-lg-6 hero-left">
+      <div class="hero-img"></div>
+      <div class="hero-left-content">
+        <span class="hero-tag">Solo para mujeres · Desde 2018</span>
+        <h1 class="hero-title">El espacio<br>donde te<br><em>transformas.</em></h1>
+        <p class="hero-desc">Spa y salón de belleza femenino en Antioquia. Agendamiento inteligente, estilistas expertas y productos de primera calidad.</p>
+        <div class="d-flex gap-3 flex-wrap">
+          <button class="btn-white" onclick="openBookingModal()">Reservar mi cita</button>
+          <a href="#servicios" class="btn-outline-w">Ver servicios</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 hero-right">
+      <div class="hero-cards-title">Nuestros espacios</div>
+      <div class="row g-2 mb-2">
+        <div class="col-6"><div class="hstat"><div class="hstat-num">86+</div><div class="hstat-label">Clientas activas</div></div></div>
+        <div class="col-6"><div class="hstat"><div class="hstat-num">24</div><div class="hstat-label">Servicios disponibles</div></div></div>
+      </div>
+      <div class="row g-2">
+        <div class="col-6"><div class="hero-thumb"><img src="https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=500&q=80" alt="Área capilar"><div class="thumb-label">Área capilar</div></div></div>
+        <div class="col-6"><div class="hero-thumb"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=500&q=80" alt="Nail studio"><div class="thumb-label">Nail studio</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ SERVICES ═══════════════════════ -->
+<section id="servicios" class="py-5">
+  <div class="container-xl px-4">
+    <span class="eyebrow">Nuestros servicios</span>
+    <h2 class="sec-title">Todo lo que necesitas<br><em>en un solo lugar</em></h2>
+    <p class="sec-sub">24 servicios disponibles. Agenda en línea y elige la estilista que prefieras.</p>
+    <div class="row g-3">
+      <div class="col-md-4 col-sm-6">
+        <div class="srv-card h-100">
+          <div class="srv-img"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80" alt="Alisado brasileño"></div>
+          <div class="p-3">
+            <span class="srv-num">01</span>
+            <div class="srv-name">Alisado Brasileño</div>
+            <p class="srv-desc mt-1 mb-2">Keratina de alta calidad para un cabello liso y libre de frizz hasta por 4 meses.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="srv-price">Desde $120.000</span>
+              <button class="btn-srv-book" onclick="bookService('Alisado Brasileño')">Agendar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="srv-card h-100">
+          <div class="srv-img"><img src="https://images.unsplash.com/photo-1599847580786-37e9946cb4f2?w=600&q=80" alt="Coloración"></div>
+          <div class="p-3">
+            <span class="srv-num">02</span>
+            <div class="srv-name">Coloración & Mechas</div>
+            <p class="srv-desc mt-1 mb-2">Balayage, mechas californianas y tintes personalizados para tu tipo de cabello.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="srv-price">Desde $80.000</span>
+              <button class="btn-srv-book" onclick="bookService('Coloración & Mechas')">Agendar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="srv-card h-100">
+          <div class="srv-img"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=80" alt="Manicure"></div>
+          <div class="p-3">
+            <span class="srv-num">03</span>
+            <div class="srv-name">Manicure & Pedicure</div>
+            <p class="srv-desc mt-1 mb-2">Esmaltado permanente, nail art y SPA completo de manos y pies.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="srv-price">Desde $35.000</span>
+              <button class="btn-srv-book" onclick="bookService('Manicure & Pedicure')">Agendar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="srv-card h-100">
+          <div class="srv-img"><img src="https://images.unsplash.com/photo-1493256338651-d82f7acb2b38?w=600&q=80" alt="Corte y estilo"></div>
+          <div class="p-3">
+            <span class="srv-num">04</span>
+            <div class="srv-name">Corte & Estilo</div>
+            <p class="srv-desc mt-1 mb-2">Cortes modernos con asesoría de imagen, brushing y peinados para eventos.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="srv-price">Desde $30.000</span>
+              <button class="btn-srv-book" onclick="bookService('Corte & Estilo')">Agendar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="srv-card h-100">
+          <div class="srv-img"><img src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=600&q=80" alt="Tratamientos capilares"></div>
+          <div class="p-3">
+            <span class="srv-num">05</span>
+            <div class="srv-name">Tratamientos Capilares</div>
+            <p class="srv-desc mt-1 mb-2">Hidratación profunda, reconstrucción proteica y nutrición para cabellos dañados.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="srv-price">Desde $55.000</span>
+              <button class="btn-srv-book" onclick="bookService('Tratamientos Capilares')">Agendar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="srv-card h-100">
+          <div class="srv-img"><img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&q=80" alt="Spa facial"></div>
+          <div class="p-3">
+            <span class="srv-num">06</span>
+            <div class="srv-name">Spa Facial</div>
+            <p class="srv-desc mt-1 mb-2">Limpieza profunda, hidratación con activos premium y masaje relajante para el rostro.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="srv-price">Desde $70.000</span>
+              <button class="btn-srv-book" onclick="bookService('Spa Facial')">Agendar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ PRODUCTS ═══════════════════════ -->
+<section class="products-section py-5" id="productos">
+  <div class="container-xl px-4">
+    <span class="eyebrow">Tienda de belleza</span>
+    <h2 class="sec-title">Productos para<br><em>seguir brillando en casa</em></h2>
+    <p class="sec-sub">Las mejores marcas de cuidado capilar y belleza, disponibles para llevar.</p>
+    <div class="row g-3">
+      <div class="col-6 col-md-3"><div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400&q=80" alt="Shampoo"></div><div class="p-3"><span class="prod-badge">Capilar</span><div class="prod-name">Shampoo Keratina Profesional</div><div class="prod-brand mb-2">TIGI Bed Head · 750 ml</div><div class="d-flex justify-content-between align-items-center"><span class="prod-price">$38.000</span><button class="btn-add-cart" onclick="addToCart('Shampoo Keratina TIGI',38000)">+ Añadir</button></div></div></div></div>
+      <div class="col-6 col-md-3"><div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&q=80" alt="Mascarilla"></div><div class="p-3"><span class="prod-badge">Tratamiento</span><div class="prod-name">Mascarilla Capilar Nutritiva</div><div class="prod-brand mb-2">Schwarzkopf · 500 ml</div><div class="d-flex justify-content-between align-items-center"><span class="prod-price">$57.000</span><button class="btn-add-cart" onclick="addToCart('Mascarilla Schwarzkopf',57000)">+ Añadir</button></div></div></div></div>
+      <div class="col-6 col-md-3"><div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=400&q=80" alt="Serum"></div><div class="p-3"><span class="prod-badge">Anti-frizz</span><div class="prod-name">Sérum Anti-frizz Perfector</div><div class="prod-brand mb-2">Redken · 150 ml</div><div class="d-flex justify-content-between align-items-center"><span class="prod-price">$40.000</span><button class="btn-add-cart" onclick="addToCart('Sérum Redken Anti-frizz',40000)">+ Añadir</button></div></div></div></div>
+      <div class="col-6 col-md-3"><div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400&q=80" alt="Esmalte gel"></div><div class="p-3"><span class="prod-badge">Nail art</span><div class="prod-name">Esmalte Gel Permanente</div><div class="prod-brand mb-2">OPI · 15 ml · varios tonos</div><div class="d-flex justify-content-between align-items-center"><span class="prod-price">$23.000</span><button class="btn-add-cart" onclick="addToCart('Esmalte Gel OPI',23000)">+ Añadir</button></div></div></div></div>
+      <div class="col-6 col-md-3"><div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1631214498004-7ccfdb6e5c28?w=400&q=80" alt="Aceite capilar"></div><div class="p-3"><span class="prod-badge">Capilar</span><div class="prod-name">Aceite Capilar Marroquí</div><div class="prod-brand mb-2">Moroccanoil · 100 ml</div><div class="d-flex justify-content-between align-items-center"><span class="prod-price">$62.000</span><button class="btn-add-cart" onclick="addToCart('Aceite Moroccanoil',62000)">+ Añadir</button></div></div></div></div>
+      <div class="col-6 col-md-3"><div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1620756236308-65c3ef5d25f3?w=400&q=80" alt="Crema facial"></div><div class="p-3"><span class="prod-badge">Facial</span><div class="prod-name">Crema Hidratante Facial SPF 50</div><div class="prod-brand mb-2">La Roche-Posay · 40 ml</div><div class="d-flex justify-content-between align-items-center"><span class="prod-price">$78.000</span><button class="btn-add-cart" onclick="addToCart('Crema La Roche-Posay SPF50',78000)">+ Añadir</button></div></div></div></div>
+      <div class="col-6 col-md-3"><div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1526045612212-70caf35c14df?w=400&q=80" alt="Tónico capilar"></div><div class="p-3"><span class="prod-badge">Capilar</span><div class="prod-name">Tónico Anticaída Capilar</div><div class="prod-brand mb-2">Kérastase · 90 ml</div><div class="d-flex justify-content-between align-items-center"><span class="prod-price">$85.000</span><button class="btn-add-cart" onclick="addToCart('Tónico Kérastase',85000)">+ Añadir</button></div></div></div></div>
+      <div class="col-6 col-md-3"><div class="prod-card"><div class="prod-img"><img src="https://images.unsplash.com/photo-1601049676869-702ea24cfd58?w=400&q=80" alt="Set manicure"></div><div class="p-3"><span class="prod-badge">Nail care</span><div class="prod-name">Kit Manicure Profesional</div><div class="prod-brand mb-2">Essie · Set 5 esmaltes + base</div><div class="d-flex justify-content-between align-items-center"><span class="prod-price">$95.000</span><button class="btn-add-cart" onclick="addToCart('Kit Manicure Essie',95000)">+ Añadir</button></div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ TEAM ═══════════════════════ -->
+<section id="equipo" class="py-5">
+  <div class="container-xl px-4">
+    <span class="eyebrow">Nuestro equipo</span>
+    <h2 class="sec-title">Las manos que te<br><em>hacen brillar</em></h2>
+    <p class="sec-sub">Estilistas certificadas, especializadas y apasionadas por la belleza femenina.</p>
+    <div class="row g-3">
+      <div class="col-md-4"><div class="team-card"><div class="team-img"><img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=500&q=80" alt="Lili Mosquera"></div><div class="p-3"><div class="team-name">Lili Mosquera</div><div class="team-role mb-2">Directora & Estilista Principal</div><div class="d-flex gap-1 flex-wrap"><span class="team-spec">Alisado</span><span class="team-spec">Coloración</span><span class="team-spec">Cortes</span></div></div></div></div>
+      <div class="col-md-4"><div class="team-card"><div class="team-img"><img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=500&q=80" alt="Carolina Estrada"></div><div class="p-3"><div class="team-name">Carolina Estrada</div><div class="team-role mb-2">Especialista en Color</div><div class="d-flex gap-1 flex-wrap"><span class="team-spec">Mechas</span><span class="team-spec">Balayage</span><span class="team-spec">Tintes</span></div></div></div></div>
+      <div class="col-md-4"><div class="team-card"><div class="team-img"><img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=500&q=80" alt="Valentina Ríos"></div><div class="p-3"><div class="team-name">Valentina Ríos</div><div class="team-role mb-2">Manicurista & Estheticista</div><div class="d-flex gap-1 flex-wrap"><span class="team-spec">Nail art</span><span class="team-spec">Spa facial</span><span class="team-spec">Depilación</span></div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ WHY ═══════════════════════ -->
+<section class="why-section py-5">
+  <div class="container-xl px-4">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-5">
+        <div class="why-img"><img src="https://images.unsplash.com/photo-1470259078422-826894b933aa?w=700&q=80" alt="Spa de lujo"></div>
+      </div>
+      <div class="col-lg-7">
+        <span class="eyebrow" style="color:var(--rose-mid)">Por qué elegirnos</span>
+        <h2 class="why-title mb-4">Un spa pensado<br><em>solo para ti</em></h2>
+        <div class="d-flex flex-column gap-4">
+          <div class="d-flex gap-3"><div class="why-num">01</div><div><div class="why-text-title">Solo para mujeres</div><div class="why-text-desc">Un espacio seguro, cómodo y diseñado exclusivamente para el bienestar femenino.</div></div></div>
+          <div class="d-flex gap-3"><div class="why-num">02</div><div><div class="why-text-title">Agenda inteligente sin conflictos</div><div class="why-text-desc">El sistema detecta horarios ocupados automáticamente. Sin citas duplicadas, sin sorpresas.</div></div></div>
+          <div class="d-flex gap-3"><div class="why-num">03</div><div><div class="why-text-title">Recordatorios automáticos</div><div class="why-text-desc">WhatsApp y correo el día anterior a tu cita. Nunca más olvides tu turno.</div></div></div>
+          <div class="d-flex gap-3"><div class="why-num">04</div><div><div class="why-text-title">Productos premium disponibles</div><div class="why-text-desc">Compra directamente los productos que usamos en el spa para cuidarte en casa.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer class="py-5">
+  <div class="container-xl px-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-start pb-4 mb-3" style="border-bottom:.5px solid rgba(255,255,255,.08)">
+      <div>
+        <div class="footer-brand-name">Lili Stilo SPA</div>
+        <div class="footer-tagline">Sistema de Agendamiento Inteligente · Solo para mujeres · 2026</div>
+      </div>
+      <div class="footer-links d-flex flex-wrap gap-3 mt-3 mt-md-0">
+        <a href="#servicios">Servicios</a>
+        <a href="#productos">Tienda</a>
+        <a href="#equipo">Estilistas</a>
+        <a href="#" onclick="openBsModal('loginModal')">Iniciar sesión</a>
+      </div>
+    </div>
+    <div class="footer-credits">
+      Proyecto: Sistema de Agendamiento Inteligente para el Spa Lili Stilo<br>
+      Autores: Heilys Y. Mosquera Urrutia · Esteban Hoyos Sampedro · Gleider S. Manco Arango<br>
+      Tecnólogo ADSO — SENA Antioquia · Centro Textil y de Gestión Industrial · Mayo 2026
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// ── BOOTSTRAP MODAL HELPERS ──
+function openBsModal(id){
+  const el=document.getElementById(id);
+  bootstrap.Modal.getOrCreateInstance(el).show();
+}
+function closeBsModal(id){
+  const el=document.getElementById(id);
+  bootstrap.Modal.getOrCreateInstance(el).hide();
+}
+
+// ── CART ──
+let cart=[];
+function addToCart(name,price){
+  cart.push({name,price});
+  renderCart();
+  showToast('✓ '+name+' agregado al carrito');
+}
+function renderCart(){
+  const list=document.getElementById('cart-items-list');
+  const total=document.getElementById('cart-total-val');
+  const count=document.getElementById('cart-count');
+  if(!cart.length){
+    list.innerHTML='<p style="font-size:13px;color:var(--text-soft);padding:.5rem 0">Tu carrito está vacío.</p>';
+    total.textContent='$0';count.textContent='0';count.classList.remove('show');return;
+  }
+  list.innerHTML=cart.map((item,i)=>`
+    <div class="cart-item">
+      <span class="cart-item-name">${item.name}</span>
+      <div class="d-flex gap-2 align-items-center">
+        <span class="cart-item-price">$${item.price.toLocaleString('es-CO')}</span>
+        <button class="btn-remove" onclick="removeFromCart(${i})">✕</button>
+      </div>
+    </div>`).join('');
+  const t=cart.reduce((a,b)=>a+b.price,0);
+  total.textContent='$'+t.toLocaleString('es-CO');
+  count.textContent=cart.length;count.classList.add('show');
+}
+function removeFromCart(i){cart.splice(i,1);renderCart()}
+function doCheckout(){
+  if(!cart.length){showToast('Tu carrito está vacío');return}
+  document.getElementById('checkout-success').classList.remove('d-none');
+  cart=[];renderCart();
+  setTimeout(()=>{
+    document.getElementById('checkout-success').classList.add('d-none');
+    closeBsModal('cartModal');
+  },3000);
+  showToast('¡Pedido realizado! Te contactaremos pronto.');
+}
+
+// ── TOAST ──
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.style.display='block';
+  setTimeout(()=>t.style.display='none',3000);
+}
+
+// ── LOGIN ──
+let currentRole='clienta';
+const USERS={
+  clienta:{email:'clienta@lilistilo.com',pass:'123456'},
+  trabajadora:{email:'trabajadora@lilistilo.com',pass:'123456'},
+  administrador:{email:'admin@lilistilo.com',pass:'admin123'}
+};
+function switchRole(role,tab){
+  currentRole=role;
+  document.querySelectorAll('.login-tab-btn').forEach(t=>t.classList.remove('active'));
+  tab.classList.add('active');
+  const hint=document.getElementById('login-role-hint');
+  const labels={clienta:'Acceso para Clientas',trabajadora:'Acceso para Trabajadoras',administrador:'Acceso para Administradores'};
+  const cls={clienta:'role-client',trabajadora:'role-worker',administrador:'role-admin'};
+  hint.textContent=labels[role];hint.className='role-badge '+cls[role]+' mb-3';
+  document.getElementById('login-error').classList.add('d-none');
+  document.getElementById('login-success').classList.add('d-none');
+}
+function doLogin(){
+  const email=document.getElementById('login-email').value.trim();
+  const pass=document.getElementById('login-pass').value;
+  const err=document.getElementById('login-error');
+  const ok=document.getElementById('login-success');
+  err.classList.add('d-none');ok.classList.add('d-none');
+  const u=USERS[currentRole];
+  if(email===u.email&&pass===u.pass){
+    ok.classList.remove('d-none');
+    setTimeout(()=>{
+      closeBsModal('loginModal');
+      document.getElementById('login-email').value='';
+      document.getElementById('login-pass').value='';
+      ok.classList.add('d-none');
+      openDash(currentRole);
+    },1200);
+  } else {err.classList.remove('d-none')}
+}
+function openDash(role){
+  const map={clienta:'dash-client',trabajadora:'dash-worker',administrador:'dash-admin'};
+  document.getElementById(map[role]).classList.add('open');
+}
+function closeDash(id){document.getElementById(id).classList.remove('open')}
+function swapToRegister(){closeBsModal('loginModal');setTimeout(()=>openBsModal('registerModal'),300)}
+function swapToLogin(){closeBsModal('registerModal');setTimeout(()=>openBsModal('loginModal'),300)}
+
+function doRegister(){
+  const name=document.getElementById('reg-name').value;
+  const lname=document.getElementById('reg-lname').value;
+  const email=document.getElementById('reg-email').value;
+  const pass=document.getElementById('reg-pass').value;
+  if(!name||!email||!pass){showToast('Por favor completa todos los campos.');return}
+  if(pass.length<6){showToast('La contraseña debe tener al menos 6 caracteres.');return}
+  USERS.clienta={email,pass};
+  const s=document.getElementById('reg-success');
+  s.textContent='¡Cuenta creada para '+name+' '+lname+'! Ya puedes iniciar sesión.';
+  s.classList.remove('d-none');
+  setTimeout(()=>{s.classList.add('d-none');swapToLogin()},2500);
+}
+
+// ── BOOKING ──
+let bState={service:'',date:'',time:'',estilista:'',nombre:'',email:''};
+let calYear,calMonth;
+
+function openBookingModal(){
+  openBsModal('modalAgendar');
+}
+
+function bookService(name){
+  // Pre-select the service and open modal
+  openBookingModal();
+  setTimeout(()=>{
+    document.querySelectorAll('#step1 .srv-opt').forEach(o=>{
+      if(o.querySelector('.opt-name').textContent===name) o.click();
+    });
+  },300);
+}
+
+function initCal(){
+  const now=new Date();calYear=now.getFullYear();calMonth=now.getMonth();renderCal();
+}
+function changeMonth(d){
+  calMonth+=d;
+  if(calMonth>11){calMonth=0;calYear++}
+  if(calMonth<0){calMonth=11;calYear--}
+  renderCal();
+}
+function renderCal(){
+  const months=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  const days=['Lu','Ma','Mi','Ju','Vi','Sá','Do'];
+  document.getElementById('cal-month-label').textContent=months[calMonth]+' '+calYear;
+  const grid=document.getElementById('cal-grid');
+  grid.innerHTML='';
+  days.forEach(d=>{const el=document.createElement('div');el.className='cal-day-name';el.textContent=d;grid.appendChild(el)});
+  const first=new Date(calYear,calMonth,1);
+  let startDay=first.getDay();startDay=startDay===0?6:startDay-1;
+  const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
+  const today=new Date();today.setHours(0,0,0,0);
+  for(let i=0;i<startDay;i++){const el=document.createElement('div');el.className='cal-day empty';grid.appendChild(el)}
+  for(let d=1;d<=daysInMonth;d++){
+    const el=document.createElement('div');el.className='cal-day';el.textContent=d;
+    const thisDate=new Date(calYear,calMonth,d);
+    if(thisDate<today)el.classList.add('past');
+    else{
+      if(thisDate.toDateString()===today.toDateString())el.classList.add('today');
+      el.onclick=()=>selectDate(el,calYear,calMonth,d);
+    }
+    grid.appendChild(el);
+  }
+}
+function selectDate(el,y,m,d){
+  document.querySelectorAll('.cal-day').forEach(x=>x.classList.remove('selected'));
+  el.classList.add('selected');
+  const months=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  const days=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+  const date=new Date(y,m,d);
+  bState.date=days[date.getDay()]+' '+d+' de '+months[m]+' de '+y;
+}
+function selTime(el){
+  document.querySelectorAll('.time-slot:not(.taken)').forEach(t=>t.classList.remove('selected'));
+  el.classList.add('selected');bState.time=el.textContent;
+}
+function selectSrv(el,name){
+  document.querySelectorAll('.srv-opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');bState.service=name;
+}
+function goStep(n){
+  [1,2,3,4].forEach(i=>{
+    document.getElementById('step'+i).classList.toggle('show',i===n);
+    const tab=document.getElementById('tab'+i);
+    tab.className='bstep'+(i===n?' active':i<n?' done':'');
+  });
+}
+function nextStep(from){
+  if(from===1&&!bState.service){showToast('Por favor selecciona un servicio.');return}
+  if(from===2){
+    if(!bState.date){showToast('Por favor selecciona una fecha en el calendario.');return}
+    if(!bState.time){showToast('Por favor selecciona un horario.');return}
+    bState.estilista=document.getElementById('estilista-sel').value;
+  }
+  if(from===3){
+    bState.nombre=document.getElementById('b-nombre').value;
+    bState.email=document.getElementById('b-email').value;
+    if(!bState.nombre){showToast('Por favor ingresa tu nombre.');return}
+    if(!bState.email){showToast('Por favor ingresa tu correo.');return}
+    document.getElementById('c-srv').textContent=bState.service;
+    document.getElementById('c-fecha').textContent=bState.date;
+    document.getElementById('c-hora').textContent=bState.time;
+    document.getElementById('c-est').textContent=bState.estilista;
+    document.getElementById('c-nom').textContent=bState.nombre;
+    document.getElementById('c-mail').textContent=bState.email;
+  }
+  goStep(from+1);
+  if(from===1)initCal();
+}
+function prevStep(from){if(from>1)goStep(from-1)}
+function confirmarCita(){
+  document.getElementById('confirm-block').style.display='none';
+  document.getElementById('success-panel').classList.remove('d-none');
+  document.getElementById('success-msg').innerHTML=
+    'Tu cita de <strong>'+bState.service+'</strong> el <strong>'+bState.date+'</strong> a las <strong>'+bState.time+'</strong> está confirmada.<br>Enviamos el recordatorio a <strong>'+bState.email+'</strong>.';
+  addClientAppt(bState);
+}
+function resetBooking(){
+  bState={service:'',date:'',time:'',estilista:'',nombre:'',email:''};
+  document.querySelectorAll('.srv-opt').forEach(o=>o.classList.remove('selected'));
+  document.querySelectorAll('.time-slot').forEach(t=>t.classList.remove('selected'));
+  ['b-nombre','b-tel','b-email','b-notas'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('confirm-block').style.display='';
+  document.getElementById('success-panel').classList.add('d-none');
+  goStep(1);
+}
+function addClientAppt(s){
+  document.getElementById('client-appts-table').innerHTML=
+    `<tr><td>${s.date}</td><td>${s.service}</td><td>${s.estilista}</td><td><span class="dash-badge badge-conf">Confirmada</span></td></tr>`;
+}
+
+// Init cart
+renderCart();
+</script>
+</body>
+</html>
